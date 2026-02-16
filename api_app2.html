@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <style>
+        #website{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #cartTable{
+            border: 1px solid black;
+            width: 25%;
+        }
+        #atdiv{
+            display: flex;
+            justify-content: space-evenly;
+            width: 40px;
+            height: 30px;
+        }
+        #products{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            width: 70%;
+        }  
+        #products div{
+            width: 150px;
+            text-align: center;
+            border: 2px solid black;
+            border-radius: 10px;
+            margin: 5px;
+            padding: 5px;
+        }
+        #products img{
+            width: 100%;    
+        }
+        #products button{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Point Of Sale</h2>
+    <div id="website">
+        <div id="products"></div>
+        <div id="cartTable">
+            <h2 id="cart"></h2>
+            <table border="1px">
+                <th>Title</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <tbody id="tab"></tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        var count=0;
+        var cartItems=[];
+        function genproducts(){
+            fetch("https://dummyjson.com/product?limit=29&skip=10")
+            .then(function(res){ return res.json() })
+            .then(function(data){ genTable(data.products) })
+        }
+        genproducts();
+        function genTable(products){
+            products.forEach(product => {
+                var productCard=document.createElement("div")
+                var productImage=document.createElement("img")
+                productImage.src=product.thumbnail
+                productCard.appendChild(productImage)
+                var productTitle=document.createElement("p")
+                productTitle.innerText=[product.title,'$'+product.price]
+                productCard.appendChild(productTitle)
+                var div=document.createElement("div")
+                div.id='atcdiv'
+                var addToCartBtn=document.createElement("button")
+                addToCartBtn.innerText='Add To Cart'
+                addToCartBtn.onclick = function () { 
+                    var count=1
+                    var atc=document.createElement("div")
+                    atc.id='atdiv'
+                    var minusBtn=document.createElement("button")
+                    minusBtn.innerText='-'
+                    minusBtn.onclick=function(){
+                        count--
+                        c.innerText=count
+                    }
+                    atc.appendChild(minusBtn)
+                    var c=document.createElement("p")
+                    c.innerText=count
+                    atc.appendChild(c)
+                    var plusBtn=document.createElement("button")
+                    plusBtn.innerText='+'
+                    plusBtn.onclick=function(){
+                        count++
+                        c.innerText=count
+                        
+                    }
+                    atc.appendChild(plusBtn)
+                    div.replaceWith(atc)
+                    addToCart(product); 
+                }
+                div.appendChild(addToCartBtn)
+                productCard.appendChild(div)                
+                document.getElementById("products").appendChild(productCard)
+            });   
+        }
+        function addToCart(item){
+                cartItems.push(item)
+                genCartTable()
+           
+        }
+        console.log(cartItems)
+        function genCartTable(){
+            document.getElementById("tab").innerText=''
+            cartItems.forEach(function(item){
+                var ntr=document.createElement("tr");
+                var ntdTitle=document.createElement("td");
+                ntdTitle.innerText=item.title;
+                var ntdqnty=document.createElement("td");
+                
+                    var count=1
+                    var atc=document.createElement("div")
+                    atc.id='atdiv'
+                    var minusBtn=document.createElement("button")
+                    minusBtn.innerText='-'
+                    minusBtn.onclick=function(){
+                        count--
+                        c.innerText=count
+                        ntdTotal.innerText=item.price*count;
+                    }
+                    atc.appendChild(minusBtn)
+                    var c=document.createElement("p")
+                    c.innerText=count
+                    atc.appendChild(c)
+                    var plusBtn=document.createElement("button")
+                    plusBtn.innerText='+'
+                    plusBtn.onclick=function(){
+                        count++
+                        c.innerText=count
+                        ntdTotal.innerText=item.price*count;
+                    }
+                    atc.appendChild(plusBtn)
+               
+                ntdqnty.appendChild(atc)
+                var ntdPrice=document.createElement("td");
+                ntdPrice.innerText=item.price;
+                var ntdTotal=document.createElement("td");
+                ntdTotal.innerText=item.price;
+                ntr.appendChild(ntdTitle);
+                ntr.appendChild(ntdqnty);
+                ntr.appendChild(ntdPrice);
+                ntr.appendChild(ntdTotal); 
+                document.getElementById("tab").appendChild(ntr);
+            })
+        }
+        // function atcbutton(ntdTotal){
+        //             var count=1
+        //             var atc=document.createElement("div")
+        //             atc.id='atdiv'
+        //             var minusBtn=document.createElement("button")
+        //             minusBtn.innerText='-'
+        //             minusBtn.onclick=function(){
+        //                 count--
+        //                 c.innerText=count
+        //                 ntdTotal.innerText=item.price*count;
+        //             }
+        //             atc.appendChild(minusBtn)
+        //             var c=document.createElement("p")
+        //             c.innerText=count
+        //             atc.appendChild(c)
+        //             var plusBtn=document.createElement("button")
+        //             plusBtn.innerText='+'
+        //             plusBtn.onclick=function(){
+        //                 count++
+        //                 c.innerText=count
+        //                 ntdTotal.innerText=item.price*count;
+        //             }
+        //             atc.appendChild(plusBtn)
+        //             return atc
+        // }
+    </script>
+</body>
+</html>

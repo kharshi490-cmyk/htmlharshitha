@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #btn{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn" onclick="btnchange()">white</button>
+    <script>
+        function btnchange(){
+            if(btn.innerText=='white'){
+                document.getElementById("btn").innerText="green"
+                document.getElementById("btn").style.backgroundColor='Green'
+            }
+            else{
+                document.getElementById("btn").innerText="white"
+                document.getElementById("btn").style.backgroundColor='white'
+            }
+        }
+    </script>
+</body>
+</html>

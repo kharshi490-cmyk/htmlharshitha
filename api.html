@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="api"></ul>
+    <button onclick="next()">Next</button>
+    <script>
+        var s=0;
+        function getprod(){
+            fetch("https://dummyjson.com/products?limit=10&&skip="+s)
+            .then(function (res){return res.json()})
+            .then(function(data){
+                genui(data.products)
+            })
+        }
+        getprod();
+        function genui(products){
+            products.forEach(element => {
+                var nli=document.createElement("li");
+                nli.innerText=element.title;
+                document.getElementById("api").appendChild(nli);
+            });
+        }
+        function next(){
+            s+=10;
+            getprod();
+        } 
+    </script>
+</body>
+</html>

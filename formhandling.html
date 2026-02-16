@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <form name="sform" onsubmit="handleSubmit(event)">
+        Full Name:
+        <br>
+        <input type="text" id="name">
+        <br>
+        Gender:
+        <br>
+        <input type="radio" name="gender" value="F" ><label>:Female</label>
+        <input type="radio" name="gender" value="M"><label>:Male</label>
+        <input type="radio" name="gender" value="O"><label>:Others</label>
+        <br>
+        Technology:
+        <br>
+
+        <input type="checkbox" name="technology" value="js">:Javascript
+        <input type="checkbox" name="technology" value="rjs">:ReactJS
+        <input type="checkbox" name="technology" value="ajs">:Angular
+        <input type="checkbox" name="technology" value="njs">:NodeJS
+        <br>
+        Address:
+        <br>
+
+        <textarea id="txt"></textarea>
+        <br>
+        <button>Show Student</button>
+    </form>
+    <h1>Entered Text:<span id="d1"></span></h1>
+    <table  border="1px">
+        <th>Name:</th>
+        <th>Gender:</th>
+        <th>Technology:</th>
+        <th>Address:</th>
+        <tbody id="tab"></tbody>
+    </table>
+
+    <script>
+        var students=[];
+        function handleSubmit(ev) {
+            ev.preventDefault();
+            let newStudent = {
+            fullname: '',
+            gender: "",
+            technologies: [],
+            address: ""
+        }
+            var name=document.getElementById("name");
+            newStudent.fullname= name.value;
+            newStudent.gender=document.sform.gender.value;
+            document.sform.technology.forEach(function(ele){
+                if(ele.checked){
+                    newStudent.technologies.push(ele.value);
+                }
+            })
+            var txtarea=document.getElementById("txt");
+            newStudent.address=txtarea.value;
+            students.push(newStudent);
+            console.log(newStudent);
+            console.log(students);
+            display();
+            function display(){
+                document.getElementById("tab").innerText="";
+                students.forEach(function(obj){
+                    var ntr=document.createElement("tr");
+                    var ntdname=document.createElement("td");
+                    ntdname.innerText=obj.fullname;
+                    var ntdgen=document.createElement("td");
+                    ntdgen.innerText=obj.gender;
+                    var ntdtech=document.createElement("td");
+                    ntdtech.innerText=obj.technologies;
+                    var ntdadd=document.createElement("td");
+                    ntdadd.innerText=obj.address;
+                    ntr.appendChild(ntdname);
+                    ntr.appendChild(ntdgen);
+                    ntr.appendChild(ntdtech);
+                    ntr.appendChild(ntdadd); 
+                    document.getElementById("tab").appendChild(ntr);
+                })
+            }
+        }
+
+    </script>
+</body>
+
+</html>

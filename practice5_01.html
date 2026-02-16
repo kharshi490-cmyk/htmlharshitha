@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul{
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        li{
+            border: 1px solid black;
+            padding: 10px;
+            margin: 2px;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <ul id="arr_obj"></ul>
+    <script>
+        // let array=["harshi","sai","jaya","sravya"];
+        // array.forEach(function(ele){
+        //     console.log(ele);
+        // })
+
+        let array_objects=[{Name:'harshi',Age:17},{Name:'kajal',Age:30},{Name:'prabhas',Age:45}];
+        for(let i=0;i<=array_objects.length-1;i++){
+            var nli=document.createElement("li");
+            var li_name=document.createElement("h3");
+            li_name.innerText=array_objects[i].Name;
+            var li_age=document.createElement("h3");
+            li_age.innerText=array_objects[i].Age;
+            nli.appendChild(li_name);
+            nli.appendChild(li_age);
+            document.getElementById("arr_obj").appendChild(nli);
+        }
+    </script>
+</body>
+</html>

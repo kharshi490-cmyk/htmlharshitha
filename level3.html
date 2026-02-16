@@ -1,0 +1,44 @@
+<html>
+    <head></head>
+    <body>
+        <script>
+           /* let units=+prompt('Enter units consumed:');
+            let bill=0;
+            if(units>200){
+               bill=100*1;
+               units-=100;
+               if(units>=100){
+                   bill+=100*2;
+                   units-=100;
+               }
+                bill+=units*5;
+            }
+            else if(units>100){
+                bill=100*1;
+                units-=100;
+                bill+=units*2;
+            }
+            else{
+                bill=units*1;
+            }
+            console.log(bill);*/ 
+
+            let a=+prompt();
+            let b=+prompt();
+            let c=+prompt();
+            if(a+b>c&&a+c>b&&b+c>a){
+                if(a==b&&b==c&&a==c){
+                    console.log('Equilateral');
+                }
+                else if(a==b||b==c||a==c){
+                    console.log('Isosceles');
+                } 
+                else{
+                    console.log('Scalene');
+                }
+            }else{
+                console.log('Invalid triangle');
+            }
+        </script>
+    </body>
+</html>

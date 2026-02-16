@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inp">
+    <button onclick="fun1()">submit</button>
+    <input type="text" id="inp2" onkeyup="fun2(event)">
+    <h3 id="dis_inp"></h3>
+    <script>
+        function fun1(){
+            document.getElementById("dis_inp").innerText=document.getElementById("inp").value;
+            // document.getElementById("dis_inp").innerText=eve.target.value;
+            // console.log(eve);
+        }
+        function fun2(eve){
+            // document.getElementById("dis_inp").innerText=document.getElementById("inp2").value;
+            document.getElementById("dis_inp").innerText=eve.target.value;
+            console.log(eve);
+        }
+    </script>
+</body>
+</html>

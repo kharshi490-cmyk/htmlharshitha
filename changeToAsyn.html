@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function addseries(a,b,cb){
+            setTimeout(function(){
+                let sum=0;
+                for(let i=a;i<=b;i++){
+                    sum+=i;
+                }
+                cb(sum);
+            },1)
+        }
+        addseries(10,200000,function(res){console.log(res);});
+
+        function addseries3(a,b,cb){
+            setTimeout(function(){
+                let sum=0;
+                for(let i=a;i<=b;i++){
+                    sum+=i;
+                }
+                cb(sum);
+            },1)
+        }
+        addseries3(10,20,function(res){console.log(res);});
+
+        // function addseries2(a,b){
+        //     var p=new Promise(function(reslove,reject){
+        //         setTimeout(function(){
+        //         let sum=0;
+        //         for(let i=a;i<=b;i++){
+        //             sum+=i;
+        //         }
+        //         reslove(sum)
+        //     },1)
+        //     })
+        //     return p
+        // }
+        // addseries2(1,5)
+        // .then(function(res){console.log(res);})
+        // .catch(function(err){console.log(err);});
+
+        // function add(a,b){
+        //     let sum=0;
+        //         for(let i=a;i<=b;i++){
+        //             sum+=i;
+        //         }       
+        //     return Promise.resolve(sum);
+        // }
+        // add(1,50).then(function(res){console.log(res);});
+
+        // function addseries1(a,n){
+        //     return new Promise((reslove,reject)=>{
+        //         if(typeof n!=="number"||n<1){
+        //            reject("input"); 
+        //         }
+        //         else{
+        //              let sum=0;
+        //             for(let i=a;i<=n;i++){
+        //                 sum+=i;
+        //             } 
+        //             reslove(sum);
+        //         }
+        //     });
+        // }
+        // addseries1(1,50).then(res=>console.log(res)).catch(err=>console.error(err));
+
+        console.log('addseries using promise');
+        console.log('add using promise');
+        console.log('addseries using setTimeOut')
+    </script>
+</body>
+</html>

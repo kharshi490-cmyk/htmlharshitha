@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POS</title>
+
+<style>
+#website{
+    display:flex;
+}
+#products{
+    width:70%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+#products div{
+    border:2px solid black;
+    width:150px;
+    padding:5px;
+    text-align:center;
+}
+#products img{
+    width:100%;
+}
+#cartTable{
+    width:30%;
+    border:1px solid black;
+}
+button{
+    cursor:pointer;
+}
+.qty-btn{
+    padding:2px 6px;
+}
+</style>
+</head>
+
+<body>
+<h2>Point Of Sale</h2>
+
+<div id="website">
+    <div id="products"></div>
+
+    <div id="cartTable">
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="tab"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+let cartItems = [];
+
+/* FETCH PRODUCTS */
+fetch("https://dummyjson.com/products?limit=20")
+.then(res => res.json())
+.then(data => renderProducts(data.products));
+
+/* SHOW PRODUCTS */
+function renderProducts(products){
+    products.forEach(product => {
+        let card = document.createElement("div");
+
+        card.innerHTML = `
+            <img src="${product.thumbnail}">
+            <p>${product.title}</p>
+            <p>$${product.price}</p>
+            <button onclick="addToCart(${product.id}, '${product.title}', ${product.price})">
+                Add To Cart
+            </button>
+        `;
+
+        document.getElementById("products").appendChild(card);
+    });
+}
+
+/* ADD TO CART */
+function addToCart(id, title, price){
+    let existing = cartItems.find(item => item.id === id);
+
+    if(existing){
+        existing.quantity++;
+    } else {
+        cartItems.push({
+            id,
+            title,
+            price,
+            quantity: 1
+        });
+    }
+    renderCart();
+}
+
+/* UPDATE QUANTITY */
+function updateQty(index, change){
+    cartItems[index].quantity += change;
+
+    if(cartItems[index].quantity <= 0){
+        cartItems.splice(index,1);
+    }
+    renderCart();
+}
+
+/* RENDER CART TABLE */
+function renderCart(){
+    let tbody = document.getElementById("tab");
+    tbody.innerHTML = "";
+
+    cartItems.forEach((item, index) => {
+        let tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${item.title}</td>
+            <td>
+                <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
+                ${item.quantity}
+                <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+            </td>
+            <td>$${item.price}</td>
+            <td>$${item.price * item.quantity}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+</script>
+</body>
+</html>
