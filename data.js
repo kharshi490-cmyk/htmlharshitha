@@ -1,4 +1,4 @@
-[
+var data=[
   {
     "title": "Unlocking Android",
     "isbn": "1933988673",
